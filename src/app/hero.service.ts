@@ -18,4 +18,11 @@ export class HeroService {
     this.messageService.add('HeroService: fetched heroes');
     return heroes;
   }
+  getHero(id: number): Observable<Hero> {
+    // 지금은 히어로의 `id` 프로퍼티가 항상 존재한다고 간주.
+    // TODO: 에러 처리
+    const hero = HEROES.find((h) => h.id === id)!;
+    this.messageService.add(`HeroService: fetched hero id=${id}`);
+    return of(hero);
+  }
 }
