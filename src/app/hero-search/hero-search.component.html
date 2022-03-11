@@ -1,0 +1,14 @@
+<div id="search-component">
+  <label for="search-box">Hero Search</label>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <!-- *ngFor는 히어로 객체를 순회하는데, 이 때 heroes 배열대신 heroes$를 사용합니다. $는 Observable을 뜻하는 관용적 표현입니다. -->
+    <!-- '| asyncs' 는 observable을 자동으로 구독하는 역할을 합니다. -->
+    <li *ngFor="let hero of heroes$ | async">
+      <a routerLink="/detail/{{ hero.id }}">
+        {{ hero.name }}
+      </a>
+    </li>
+  </ul>
+</div>
