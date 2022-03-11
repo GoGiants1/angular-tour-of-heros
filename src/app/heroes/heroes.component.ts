@@ -23,4 +23,21 @@ export class HeroesComponent implements OnInit {
   getHeros() {
     this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
   }
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) {
+      return;
+    }
+    this.heroService.addHero({ name } as Hero).subscribe((hero) => {
+      this.heroes.push(hero);
+    });
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter((h) => h !== hero);
+    this.heroService.deleteHero(hero.id).subscribe();
+    // subscribe()를 생략하면 서버로 제거 요청을 보내지 않습니다! 왜냐하면 아무도 구독하지 않은 Observable은 아무 동작도 하지 않기 때문입니다!
+    // 이 내용을 확인해 보려면 subscribe() 부분을 제거하고 앱을 다시 실행해 보세요. 히어로를 제거한 뒤 다른 페이지로 이동했다가 돌아오면 이전에 표시되었던 히어로 목록이 그대로 표시되는 것을 확인할 수 있습니다.
+  }
 }
